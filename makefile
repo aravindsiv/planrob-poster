@@ -1,4 +1,4 @@
-DOCUMENT := RSS
+DOCUMENT := PlanRob
 
 TEMPLDIR   := ~/repositories/templates/latex
 

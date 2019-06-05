@@ -1,54 +1,63 @@
 \begin{columns}[t]
-	\begin{column}{0.32\textwidth}
-		\begin{block}{\large Pose Estimation Evaluation}
-			\centering
-			\begin{itemize}
-				\item Dataset is readily used to compare pose estimation algorithms for this difficult task 
-				\item Acceptable accuracy thresholds are at the discretion of the user
-				\item May use the metrics provided by the dataset to determine a series of improvements in order to deal with difficulties of the task
-			\end{itemize}
-				\begin{figure}[h]
-					\includegraphics[width = 0.9\textwidth]{results}
-					\caption{Evaluation made possible several improvements to an example pose estimation algorithm }
-				\end{figure}
-				\begin{figure}[h]
-					\includegraphics[width = 0.7\textwidth]{munchkin_det}
-					\caption {An example detection of the ``duck'' from our dataset}
-				\end{figure}
+	\begin{column}{0.68\textwidth}
+	\vspace{-1in}
+		\begin{block}{\large Solution statistics}
+		We compare the performance of DIRT (after 50k iterations) for the following maneuvers: 
+		\begin{itemize}
+			\item random (DIRT - Random) 
+			\item only exploitative control predicted by the network (DIRT - FC (Exploit), DIRT - Conv (Exploit))
+			\item both exploitative and explorative controls are predicted by the networks ((DIRT - FC (All), DIRT - Conv (All))
+		\end{itemize} 
+			\vspace{0.1in}
+			\begin{table}[]
+				\centering
+				\begin{tabular}{|l|l|l|l|l|l|}
+				\hline
+				\textbf{Algorithm}    & \textbf{NumSolns} & \textbf{FirstSolnIters} & \textbf{FirstSolnCost} & \textbf{FinalSolnIters} & \textbf{FinalSolnCost} \\ [0.5ex]  \hline
+				DIRT - Random         & 30                    & 3446.67                 & 59.64                     & 23277.57                & 49.44                     \\ \hline
+				DIRT - FC (Exploit)   & 30                    & 2246.67                 & 56.54                     & 17050.37                & 49.89                     \\ \hline
+				DIRT - FC (All)       & 30                    & \textbf{620}                     & \textbf{47.58}                     & \textbf{16921.5}                 & \textbf{45.47}                     \\ \hline
+				DIRT - Conv (Exploit) & 30                    & 3366.67                 & 65.03                     & 27774.67                & 48.38                     \\ \hline
+				DIRT - Conv (All)     & 30                    & 2006.67                 & 54.8                      & 25671.07                & 48.16                     \\   \hline
+				\end{tabular}
+				\vspace{.1in}
+				\caption{Solution statistics for \texttt{Greedy}. All values are averaged over \texttt{NumSolns}. Best values highlighted in bold.
+				\vspace{-.1in}}
+			\end{table}
+			\vspace{0.1in}
+			\begin{table}[]
+				\centering
+				\begin{tabular}{|l|l|l|l|l|l|}
+				\hline
+				\textbf{Algorithm}    & \textbf{NumSolns} & \textbf{FirstSolnIters} & \textbf{FirstSolnCost} & \textbf{FinalSolnIters} & \textbf{FinalSolnCost} \\
+				[0.5ex] \hline
+				DIRT - Random         & 30                & 15666.67                & 163.60                 & 33254.13                & 149.47                 \\ \hline
+				DIRT - FC (Exploit)   & 29                & \textbf{12000}                   & 155                    & 31794.86                & 140.06                 \\ \hline
+				DIRT - FC (All)       & 30                & 18766.67                & \textbf{133.83}                 & \textbf{28119.66}                & \textbf{130.92}                 \\ \hline
+				DIRT - Conv (Exploit) & 29                & 27666.67                & 182.16                 & 39924.96                & 172.14                 \\ \hline
+				DIRT - Conv (All)     & 30                & 14066.67                & 143.71                 & 28194.83                & 139.43                 \\ \hline
+				\end{tabular}
+				\vspace{.1in}
+				\caption{Solution statistics for \texttt{Explore}. All values are averaged over \texttt{NumSolns}. Best values highlighted in bold.
+				\vspace{-.1in}}
+			\end{table}
+			
 		\end{block}
 	\end{column}
-	\begin{column}{0.68\textwidth}
-		\begin{block}{\large Dataset Comparison}
+	\begin{column}{0.32\textwidth}
+		\begin{block}{\large Challenges}
 			\centering
-			\vspace{-0.2in}
-				\begin{figure}[h]
-					\includegraphics[width = 0.3\textwidth]{linemod_can_results}
-					\includegraphics[width = 0.3\textwidth]{linemod_duck_results}
-					\includegraphics[width = 0.3\textwidth]{linemod_iron_results}
-					\vspace{-0.2in}
-					\caption{Example objects from LINEMOD dataset evaluated using our example algorithm}
-				\end{figure}
-			\vspace{-0.2in}
 			\begin{itemize}
-				\item LINEMOD dataset of 10,000+ RGBD images with ground truth 6D pose
-				\item Shows target items on an AR board, in a heavily cluttered environment
-				\item Samples generated from a variety of viewpoints around and above the object
-				\item Can evaluate rotational, translational accuracy using the provided object models 
+				\item An improved learning process is necessary to increase the rate of collision-free maneuvers.
+				\item Current cost of network inference is more expensive than returning a random control.
+				\item For higher dimensional systems, more complex environments and realistic sensing input, there are additional considerations related to data efficiency and uncertainty that must be mitigated.
 			\end{itemize}
-				\begin{figure}[h]
-					\includegraphics[width = 0.3\textwidth]{scatter_champion}
-					\includegraphics[width = 0.3\textwidth]{scatter_munchkin}
-					\includegraphics[width = 0.3\textwidth]{scatter_expo}
-					\vspace{-0.2in}
-					\caption{Objects from our dataset evaluated using the same algorithm; Colors indicate clutter conditions}
-				\end{figure}
-			\vspace{-0.2in}
-			\begin{itemize}
-				\item Our similar setup: object models provided, 10,000+ RGBD images
-				\item Able to extract effects of immediate clutter on accuracy
-				\item Can also determine robustness to noise in the sensor samples
-				\item Evaluation with our dataset allows researchers to identify certain weak points in pose estimation algorithms on this difficult task
-			\end{itemize}
+		\end{block}
+		\begin{block}{\large References}
+			\begin{enumerate}
+				\item Littlefield,  Z.,  and  Bekris,  K.  E. 2018. Efficient  and asymptotically  optimal  kinodynamic  motion  planning  via dominance-informed  regions.    In \textit{IROS}.
+				\item Green, C.J., and Kelly, A.  2007.  Toward optimal samplingin the space of paths. In \textit{ISRR}.
+			\end{enumerate}
 		\end{block}
 	\end{column}
 \end{columns}
