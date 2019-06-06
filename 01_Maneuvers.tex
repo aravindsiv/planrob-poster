@@ -1,7 +1,6 @@
 
 \begin{columns}[t]
-	\begin{column}{0.68\textwidth}
-		\vspace{-0.1in}
+	\begin{column}{0.65\textwidth}
 		\begin{block} {\large Input to the learning process}
 			\begin{columns}[T]
 				\centering
@@ -27,8 +26,8 @@
 					\vspace{0.1in}
 				\end{column}
 			\end{columns}
+		\vspace{-0.4in}
 		\end{block}
-		\vspace{-0.1in}
 		\begin{block}{\large Proposed architecture}
 			\begin{itemize}
 			\item Multi-layered neural networks $F_x, F_o, F_h$ act on the inputs to produce $x_0^*, o_{local}^*, h_{local}^*$. 
@@ -46,22 +45,28 @@
 			\end{itemize}			
 			\begin{figure}[h!]
 				\centering
-				\includegraphics[scale=1.01]{cgraph}
+				\includegraphics[scale=0.95]{cgraph}
 				\vspace{-.1in}
 				\caption{Computation graph of $U_k = \hat{f}(x_0,o_{local},h_{local})$. For $k=N, U_k = \hat{U} = \{u^0,\cdots,u^N\}$.\vspace{-.15in}}
 				\label{fig:cgraph}
 			\end{figure}
+			\vspace{-.1in}
 		\end{block}
 	\end{column}
-	\begin{column} {0.32\textwidth}
-		\begin{block}{\large Evaluation}
+	\begin{column} {0.35\textwidth}
+		\begin{block}{\large Experimental Setup}
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[scale=0.75]{skid-steer}
+			\vspace{-.1in}
+			\caption{Treaded vehicle with 5 dim. state space (SE(2) augmented by steering angle and forward velocity) and 2 dim. control space (acceleration of left and right treads) used in our experiments.}
+		\end{figure}
 		\begin{itemize}
-			\item We consider a treaded vehicle with a 5 dim. state space (SE(2) augmented by steering angle and forward velocity) and 2 dim. control space (acceleration of left and right treads).
-			\item For training, obstacles are randomly placed in a 2 dim. workspace so they cover one-third of the reachable workspace. 
-			\item The DIRT planner $[1]$ is executed with the online curation procedure on multiple problem instances in such workspaces. 
-			\item Euclidean distance to the goal in the workspace is used as the heuristic function. The cost is the duration of the solution trajectory.
-			\item For each node $x_0$ the planner selects to propagate, the training process stores the  $o_{local}$ and $h_{local}$ maps, as well as a maneuver set $\hat{U}$ of size 5 curated from a set of 1000 randomly sampled maneuvers.
-			\item Two networks - fully connected (\texttt{FC}) and convolutional (\texttt{Conv})
+			\item Randomly place obstacles in the workspace so they cover one-third of the reachable workspace. 
+			\item Execute the DIRT planner $[1]$ with the online curation procedure on multiple problem instances in such workspaces. 
+			\item Euclidean distance to the goal in the workspace is used as the heuristic function. %The cost is the duration of the solution trajectory.
+			\item For each node $x_0$ the planner selects to propagate, store $o_{local}$ and $h_{local}$ maps, and maneuver set $\hat{U}$ of size 5 curated from 1000 randomly sampled maneuvers.
+			\item Train two networks - fully connected (\texttt{FC}) and convolutional (\texttt{Conv})
 		\end{itemize}
 		\centering
 			\vspace{0.2in}
@@ -70,7 +75,7 @@
 				\begin{column}{0.4\columnwidth} 
 					\centering
 					\begin{figure}
-					\includegraphics[width=\columnwidth]{iai}
+					\includegraphics[scale=0.5]{iai}
 					\caption{\texttt{Greedy}} 
 					\end{figure}
 				\end{column}
@@ -78,13 +83,13 @@
 				\begin{column}{0.4\columnwidth} 
 					\centering
 					\begin{figure}
-					\includegraphics[width=\columnwidth]{flappy}
+					\includegraphics[scale=0.5]{flappy}
 					\caption{\texttt{Explore}} 
 					\end{figure}
 				\end{column}
 			\end{columns}
 			\vspace{0.2in}
-			Environments: The grey rectangle us the starting pose of the robot (facing right) and the green circle is the goal region. The robot must avoid the red obstacles.
+			\small{Environments: The grey rectangle is the starting pose of the robot (facing right) and the green circle is the goal region. The robot must avoid the red obstacles.}
 			\vspace{0.1in}
 		\end{block}
 	\end{column}

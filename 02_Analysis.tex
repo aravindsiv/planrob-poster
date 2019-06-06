@@ -1,6 +1,6 @@
 \begin{columns}[t]
 	\begin{column}{0.68\textwidth}
-	\vspace{-1in}
+	\vspace{-0.1in}
 		\begin{block}{\large Solution statistics}
 		We compare the performance of DIRT (after 50k iterations) for the following maneuvers: 
 		\begin{itemize}
@@ -38,25 +38,26 @@
 				DIRT - Conv (All)     & 30                & 14066.67                & 143.71                 & 28194.83                & 139.43                 \\ \hline
 				\end{tabular}
 				\vspace{.1in}
-				\caption{Solution statistics for \texttt{Explore}. All values are averaged over \texttt{NumSolns}. Best values highlighted in bold.
-				\vspace{-.1in}}
+				\caption{Solution statistics for \texttt{Explore}. All values are averaged over \texttt{NumSolns}. Best values highlighted in bold.}
 			\end{table}
-			
+			\vspace{-.2in}
+
 		\end{block}
 	\end{column}
 	\begin{column}{0.32\textwidth}
 		\begin{block}{\large Challenges}
 			\centering
 			\begin{itemize}
-				\item An improved learning process is necessary to increase the rate of collision-free maneuvers.
-				\item Current cost of network inference is more expensive than returning a random control.
-				\item For higher dimensional systems, more complex environments and realistic sensing input, there are additional considerations related to data efficiency and uncertainty that must be mitigated.
+				\item \textbf{Quality: } How to increase the rate of collision-free maneuvers?
+				\item \textbf{Cost: } How to make network inference cost comparable to returning a random maneuver?
+				\item \textbf{Data efficiency: }How to deal with higher dimensional systems and more complex environments?
+				\item \textbf{Uncertainty: }How to deal with more realistic sensing input?
 			\end{itemize}
 		\end{block}
 		\begin{block}{\large References}
 			\begin{enumerate}
 				\item Littlefield,  Z.,  and  Bekris,  K.  E. 2018. Efficient  and asymptotically  optimal  kinodynamic  motion  planning  via dominance-informed  regions.    In \textit{IROS}.
-				\item Green, C.J., and Kelly, A.  2007.  Toward optimal samplingin the space of paths. In \textit{ISRR}.
+				\item Green, C.J., and Kelly, A.  2007.  Toward optimal sampling in the space of paths. In \textit{ISRR}.
 			\end{enumerate}
 		\end{block}
 	\end{column}
